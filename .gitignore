@@ -1,0 +1,5 @@
+# Only track the dist folder, ignore everything else
+/*
+!.gitignore
+!dist/
+!dist/**
