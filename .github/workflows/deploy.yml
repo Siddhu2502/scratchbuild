@@ -1,0 +1,24 @@
+name: Deploying website to my vm
+
+# This is the trigger: the workflow runs on a push to the 'main' branch
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install SSH Key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_WEBSITE }}
+
+      - name: Deploy Code via SSH
+        run: |
+          # The actual SSH command.
+          # -o StrictHostKeyChecking=no is needed because the runner is a new machine
+          # every time and doesn't have your server in its known_hosts file.
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'cd /var/www/siddhu.serveris.live && git pull'
