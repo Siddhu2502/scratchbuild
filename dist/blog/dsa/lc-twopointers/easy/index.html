@@ -1,0 +1,390 @@
+<!DOCTYPE html><html lang="en"> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="/profile/logo.png" media="(prefers-color-scheme: dark)"><link rel="icon" type="image/svg+xml" href="/profile/logo.png" media="(prefers-color-scheme: light)"><link rel="icon" type="image/x-icon" href="/profile/logo.png"><meta name="generator" content="Astro v4.16.18"><!-- Font preloads --><link rel="preload" href="/_astro/inter-latin-400-normal.BOOGhInR.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/_astro/inter-latin-600-normal.D273HNI0.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/_astro/lora-latin-400-normal.CvHVDnm4.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/_astro/lora-latin-600-normal.DUWh3m6k.woff2" as="font" type="font/woff2" crossorigin><!-- Canonical URL --><link rel="canonical" href="https://siddhu.serveris.live/blog/dsa/lc-twopointers/easy/"><!-- Primary Meta Tags --><title>Two Pointers Patterns in LeetCode Problems (Easy) | Siddharth</title><meta name="title" content="Two Pointers Patterns in LeetCode Problems (Easy) | Siddharth"><meta name="description" content="A guide to mastering Two Pointers patterns through LeetCode problems."><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://siddhu.serveris.live/blog/dsa/lc-twopointers/easy/"><meta property="og:title" content="Two Pointers Patterns in LeetCode Problems (Easy) | Siddharth"><meta property="og:description" content="A guide to mastering Two Pointers patterns through LeetCode problems."><meta property="og:image" content="https://siddhu.serveris.live/blog/dsa/lc-twopointers/easy/profile/logo.png"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://siddhu.serveris.live/blog/dsa/lc-twopointers/easy/"><meta property="twitter:title" content="Two Pointers Patterns in LeetCode Problems (Easy) | Siddharth"><meta property="twitter:description" content="A guide to mastering Two Pointers patterns through LeetCode problems."><meta property="twitter:image" content="https://siddhu.serveris.live/blog/dsa/lc-twopointers/easy/profile/logo.png"><!-- 100% privacy-first analytics --><script data-collect-dnt="true" async src="https://scripts.simpleanalyticscdn.com/latest.js"></script><noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif?collect-dnt=true" alt="" referrerpolicy="no-referrer-when-downgrade"></noscript><!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-37NQM5JQV0"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-37NQM5JQV0');
+</script><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script>
+  function init() {
+    preloadTheme();
+    onScroll();
+    animate();
+
+    const backToTop = document.getElementById("back-to-top");
+    backToTop?.addEventListener("click", (event) => scrollToTop(event));
+
+    const backToPrev = document.getElementById("back-to-prev");
+    backToPrev?.addEventListener("click", () => window.history.back());
+
+    const lightThemeButton = document.getElementById("light-theme-button");
+    lightThemeButton?.addEventListener("click", () => {
+      localStorage.setItem("theme", "light");
+      toggleTheme(false);
+    });
+
+    const darkThemeButton = document.getElementById("dark-theme-button");
+    darkThemeButton?.addEventListener("click", () => {
+      localStorage.setItem("theme", "dark");
+      toggleTheme(true);
+    });
+
+    const systemThemeButton = document.getElementById("system-theme-button");
+    systemThemeButton?.addEventListener("click", () => {
+      localStorage.setItem("theme", "system");
+      toggleTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
+    });
+
+    window.matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", event => {
+        if (localStorage.theme === "system") {
+          toggleTheme(event.matches);
+        }
+      }
+    );
+
+    document.addEventListener("scroll", onScroll);
+  }
+
+  function animate() {
+    const animateElements = document.querySelectorAll(".animate");
+
+    animateElements.forEach((element, index) => {
+      setTimeout(() => {
+        element.classList.add("show");
+      }, index * 150);
+    });
+  }
+
+  function onScroll() {
+    if (window.scrollY > 0) {
+      document.documentElement.classList.add("scrolled");
+    } else {
+      document.documentElement.classList.remove("scrolled");
+    }
+  }
+
+  function scrollToTop(event) {
+    event.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+
+function toggleTheme(dark) {
+    const css = document.createElement("style");
+
+    css.appendChild(
+      document.createTextNode(
+        `* {
+             -webkit-transition: none !important;
+             -moz-transition: none !important;
+             -o-transition: none !important;
+             -ms-transition: none !important;
+             transition: none !important;
+          }
+        `,
+      )
+    );
+
+    document.head.appendChild(css);
+
+    if (dark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+
+  window.getComputedStyle(css).opacity;
+    document.head.removeChild(css);
+  }
+
+  function preloadTheme() {
+    const userTheme = localStorage.theme;
+
+    if (userTheme === "light" || userTheme === "dark") {
+      toggleTheme(userTheme === "dark");
+    } else {
+      toggleTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => init());
+  document.addEventListener("astro:after-swap", () => init());
+  preloadTheme();
+</script><link rel="stylesheet" href="/_astro/_slug_.D9OGefqq.css"><script type="module" src="/_astro/hoisted.RlhmG3H2.js"></script></head> <body> <header> <div class="mx-auto max-w-screen-sm px-5">  <div class="flex flex-wrap gap-y-2 justify-between"> <a href="/" target="_self" class="inline-block decoration-black/15 dark:decoration-white/30 hover:decoration-black/25 hover:dark:decoration-white/50 text-current hover:text-black hover:dark:text-white transition-colors duration-300 ease-in-out">  <div class="font-semibold"> Siddharth </div>  </a> <nav class="flex gap-1"> <a href="/blog" target="_self" class="inline-block decoration-black/15 dark:decoration-white/30 hover:decoration-black/25 hover:dark:decoration-white/50 text-current hover:text-black hover:dark:text-white transition-colors duration-300 ease-in-out underline underline-offset-2"> 
+blog
+ </a> <span> / </span> <a href="/work" target="_self" class="inline-block decoration-black/15 dark:decoration-white/30 hover:decoration-black/25 hover:dark:decoration-white/50 text-current hover:text-black hover:dark:text-white transition-colors duration-300 ease-in-out underline underline-offset-2"> 
+work
+ </a> <span> / </span> <a href="/projects" target="_self" class="inline-block decoration-black/15 dark:decoration-white/30 hover:decoration-black/25 hover:dark:decoration-white/50 text-current hover:text-black hover:dark:text-white transition-colors duration-300 ease-in-out underline underline-offset-2"> 
+projects
+ </a> </nav> </div>  </div> </header> <main>  <div class="mx-auto max-w-screen-sm px-5">  <div class="animate"> <a href="/blog" class="relative group w-fit flex pl-7 pr-3 py-1.5 flex-nowrap rounded border border-black/15 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="absolute top-1/2 left-2 -translate-y-1/2 size-4 stroke-2 fill-none stroke-current"> <line x1="5" y1="12" x2="19" y2="12" class="translate-x-2 group-hover:translate-x-0 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-in-out"></line> <polyline points="12 5 5 12 12 19" class="translate-x-1 group-hover:translate-x-0 transition-transform duration-300 ease-in-out"></polyline> </svg> <div class="text-sm"> 
+Back to blog
+ </div> </a> </div> <div class="space-y-1 my-10"> <div class="animate flex items-center gap-1.5"> <div class="font-base text-sm"> <time datetime="2025-08-02T00:00:00.000Z"> Aug 2, 2025 </time> </div>
+&bull;
+<div class="font-base text-sm"> 7 min read </div> </div> <div class="animate text-2xl font-semibold text-black dark:text-white"> Two Pointers Patterns in LeetCode Problems (Easy) </div> </div> <article class="animate"> <h3 id="group-1-converging-pointers-from-ends-to-middle">Group 1: Converging Pointers (From Ends to Middle)</h3>
+<p>This group introduces the most fundamental use of two pointers: starting at both ends and moving towards the middle. Problems begin with basic swaps and progress to conditional logic and comparisons.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>#</th><th>Problem</th><th>Link</th><th>Concept</th><th>Description of Difficulty Increase</th></tr></thead><tbody><tr><td>1</td><td>Reverse String</td><td><a href="https://leetcode.com/problems/reverse-string">Link</a></td><td>Converging Pointers (Swap)</td><td><strong>Base case.</strong> The most fundamental use of two pointers (<code>left</code>, <code>right</code>) to swap elements in place until they meet.</td></tr><tr><td>2</td><td>Flipping an Image</td><td><a href="https://leetcode.com/problems/flipping-an-image">Link</a></td><td>Converging Pointers (Swap)</td><td><strong>Boring variation.</strong> Applies the <code>Reverse String</code> logic to each row of a 2D array, with an added bit-flip step.</td></tr><tr><td>3</td><td>Reverse Vowels of a String</td><td><a href="https://leetcode.com/problems/reverse-vowels-of-a-string">Link</a></td><td>Converging Pointers (Conditional Swap)</td><td>Introduces conditional logic. Pointers must now skip over non-vowel characters before performing a swap.</td></tr><tr><td>4</td><td>Reverse Only Letters</td><td><a href="https://leetcode.com/problems/reverse-only-letters">Link</a></td><td>Converging Pointers (Conditional Swap)</td><td><strong>Boring variation</strong> of reversing vowels. The exact same logic applies, but the condition checks for letters instead of vowels.</td></tr><tr><td>5</td><td>Valid Palindrome</td><td><a href="https://leetcode.com/problems/valid-palindrome">Link</a></td><td>Converging Pointers (Comparison)</td><td>Switches from swapping to comparing. Pointers converge, comparing characters and skipping non-alphanumeric characters.</td></tr><tr><td>6</td><td>Two Sum II - Input array is sorted</td><td><a href="https://leetcode.com/problems/two-sum-ii-input-array-is-sorted">Link</a></td><td>Converging Pointers (Search)</td><td>Applies the converging pattern to a sorted array to find a target sum, adjusting pointers based on whether the current sum is too high or too low.</td></tr><tr><td>7</td><td>Squares of a Sorted Array</td><td><a href="https://leetcode.com/problems/squares-of-a-sorted-array">Link</a></td><td>Converging Pointers (Constructing an Array)</td><td>A clever twist. Uses converging pointers on the input array to build a <em>new</em> sorted array from the outside in, requiring comparison of absolute values.</td></tr><tr><td>8</td><td>Valid Palindrome II</td><td><a href="https://leetcode.com/problems/valid-palindrome-ii">Link</a></td><td>Converging Pointers + Helper Logic</td><td>Builds on “Valid Palindrome” by allowing the removal of one character, requiring a helper function to check the two resulting sub-problems.</td></tr></tbody></table>
+<h3 id="group-2-fast--slow-pointers-cycle-detection--linked-lists">Group 2: Fast &#x26; Slow Pointers (Cycle Detection &#x26; Linked Lists)</h3>
+<p>These problems use two pointers moving at different speeds to detect cycles or find midpoints, especially in linked lists and sequences.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>#</th><th>Problem</th><th>Link</th><th>Concept</th><th>Description of Difficulty Increase</th></tr></thead><tbody><tr><td>9</td><td>Middle of the Linked List</td><td><a href="https://leetcode.com/problems/middle-of-the-linked-list">Link</a></td><td>Fast &#x26; Slow Pointers</td><td><strong>Base case</strong> for this pattern. Introduces using one pointer moving twice as fast as another to find the midpoint of a sequence.</td></tr><tr><td>10</td><td>Linked List Cycle</td><td><a href="https://leetcode.com/problems/linked-list-cycle">Link</a></td><td>Fast &#x26; Slow Pointers</td><td>The canonical application of the F&#x26;S pattern. If the fast pointer ever meets the slow pointer, a cycle is detected.</td></tr><tr><td>11</td><td>Happy Number</td><td><a href="https://leetcode.com/problems/happy-number">Link</a></td><td>Fast &#x26; Slow Pointers (Abstract)</td><td><strong>Conceptual leap.</strong> Generalizes cycle detection beyond linked lists to a sequence generated by a function. The F&#x26;S logic remains the same.</td></tr><tr><td>12</td><td>Palindrome Linked List</td><td><a href="https://leetcode.com/problems/palindrome-linked-list">Link</a></td><td>Hybrid: F&#x26;S + Reversal</td><td>A multi-step problem. Combines F&#x26;S to find the middle, a reversal of the second half, and then a two-pointer comparison.</td></tr></tbody></table>
+<h3 id="group-3-in-place-array-modification-read--write-pointers">Group 3: In-place Array Modification (Read &#x26; Write Pointers)</h3>
+<p>This group focuses on modifying arrays in place using separate read and write pointers, often to partition or rearrange elements efficiently.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>#</th><th>Problem</th><th>Link</th><th>Concept</th><th>Description of Difficulty Increase</th></tr></thead><tbody><tr><td>13</td><td>Remove Element</td><td><a href="https://leetcode.com/problems/remove-element">Link</a></td><td>Two Pointers (Partitioning)</td><td><strong>Base case</strong> for in-place modification. Uses a “write” pointer to fill an array with only the elements that a “read” pointer finds valid.</td></tr><tr><td>14</td><td>Remove Duplicates from Sorted Array</td><td><a href="https://leetcode.com/problems/remove-duplicates-from-sorted-array">Link</a></td><td>Two Pointers (Partitioning)</td><td><strong>Boring variation</strong> of <code>Remove Element</code>. The condition simply changes from checking for a specific value to checking against the previous element.</td></tr><tr><td>15</td><td>Move Zeroes</td><td><a href="https://leetcode.com/problems/move-zeroes">Link</a></td><td>Two Pointers (Partitioning)</td><td>Builds on the partitioning pattern. All non-zero elements are moved to the front, and the remaining space is then filled with zeros.</td></tr><tr><td>16</td><td>Sort Array by Parity</td><td><a href="https://leetcode.com/problems/sort-array-by-parity">Link</a></td><td>Two Pointers (Partitioning)</td><td><strong>Boring variation</strong> of <code>Move Zeroes</code>. The exact same logic applies, but the condition is now <code>isEven</code> instead of <code>isNotZero</code>.</td></tr><tr><td>17</td><td>Duplicate Zeros</td><td><a href="https://leetcode.com/problems/duplicate-zeros">Link</a></td><td>Two Pointers (In-place with Lookahead)</td><td>A much trickier in-place modification. Requires a preliminary pass to count shifts, followed by a right-to-left pass to avoid overwriting elements.</td></tr></tbody></table>
+<h3 id="group-4-pointers-on-two-different-inputs">Group 4: Pointers on Two Different Inputs</h3>
+<p>Problems in this group use pointers on two different arrays or lists, often to merge, compare, or find intersections efficiently.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>#</th><th>Problem</th><th>Link</th><th>Concept</th><th>Description of Difficulty Increase</th></tr></thead><tbody><tr><td>18</td><td>Merge Strings Alternately</td><td><a href="https://leetcode.com/problems/merge-strings-alternately">Link</a></td><td>Two Pointers (Two Arrays)</td><td>The simplest two-input problem. Uses one pointer for each string and builds a new string by taking from each one in turn.</td></tr><tr><td>19</td><td>Is Subsequence</td><td><a href="https://leetcode.com/problems/is-subsequence">Link</a></td><td>Two Pointers (Two Arrays)</td><td>Classic two-pointer checker. Advances one pointer only when a match is found by the other, checking for an ordered sequence.</td></tr><tr><td>20</td><td>Long Pressed Name</td><td><a href="https://leetcode.com/problems/long-pressed-name">Link</a></td><td>Two Pointers (Two Arrays with Grouping)</td><td>Increases complexity from <code>Is Subsequence</code> by requiring logic to handle groups of identical characters, not just single characters.</td></tr><tr><td>21</td><td>Intersection of Two Arrays</td><td><a href="https://leetcode.com/problems/intersection-of-two-arrays">Link</a></td><td>Two Pointers (Sorted Arrays)</td><td>Requires sorting both arrays first. Then, two pointers are used to find common elements efficiently by advancing the smaller of the two values.</td></tr><tr><td>22</td><td>Intersection of Two Arrays II</td><td><a href="https://leetcode.com/problems/intersection-of-two-arrays-ii">Link</a></td><td>Two Pointers (Sorted Arrays)</td><td><strong>Boring variation</strong> of the previous problem. The logic is nearly identical but is adjusted to handle duplicate elements in the output.</td></tr><tr><td>23</td><td>Merge Sorted Array</td><td><a href="https://leetcode.com/problems/merge-sorted-array">Link</a></td><td>Three Pointers (In-place Merge)</td><td>A classic problem using three pointers: two “read” pointers for the input arrays and one “write” pointer to fill the target array from the end.</td></tr><tr><td>24</td><td>Intersection of Two Linked Lists</td><td><a href="https://leetcode.com/problems/intersection-of-two-linked-lists">Link</a></td><td>Two Pointers (List Hopping)</td><td>A clever trick where two pointers traverse their respective lists. When one reaches the end, it “hops” to the head of the other list, guaranteeing they meet at the intersection.</td></tr></tbody></table>
+<h3 id="group-5-other-variations-and-combinations">Group 5: Other Variations and Combinations</h3>
+<p>This group covers other variations and combinations of the two pointers pattern, including nested pointers, sliding windows, and more complex logic.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>#</th><th>Problem</th><th>Link</th><th>Concept</th><th>Description of Difficulty Increase</th></tr></thead><tbody><tr><td>25</td><td>Reverse Words in a String III</td><td><a href="https://leetcode.com/problems/reverse-words-in-a-string-iii">Link</a></td><td>Two Pointers (Nested)</td><td>Combines patterns. An outer loop/pointer finds word boundaries, and inner converging pointers are used to reverse each word.</td></tr><tr><td>26</td><td>Backspace String Compare</td><td><a href="https://leetcode.com/problems/backspace-string-compare">Link</a></td><td>Two Pointers (From the End)</td><td>A complex problem where pointers start from the end of the strings and must “skip” characters when a backspace is encountered.</td></tr><tr><td>27</td><td>Count Binary Substrings</td><td><a href="https://leetcode.com/problems/count-binary-substrings">Link</a></td><td>Two Pointers (Sliding Window)</td><td>A clever use of pointers to track the sizes of consecutive groups of <code>0</code>s and <code>1</code>s, counting valid substrings based on the minimum of the two group sizes.</td></tr></tbody></table> </article>  </div>  </main> <footer class="animate"> <div class="mx-auto max-w-screen-sm px-5">  <div class="relative"> <div class="absolute right-0 -top-20"> <button id="back-to-top" class="relative group w-fit flex pl-8 pr-3 py-1.5 flex-nowrap rounded border border-black/15 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="absolute top-1/2 left-2 -translate-y-1/2 size-4 stroke-2 fill-none stroke-current rotate-90"> <line x1="5" y1="12" x2="19" y2="12" class="translate-x-2 group-hover:translate-x-0 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-in-out"></line> <polyline points="12 5 5 12 12 19" class="translate-x-1 group-hover:translate-x-0 transition-transform duration-300 ease-in-out"></polyline> </svg> <div class="text-sm">
+Back to top
+</div> </button> </div> </div> <div class="flex justify-between items-center"> <div>
+&copy; 2025 | Siddharth </div> <div class="flex flex-wrap gap-1 items-center"> <button id="light-theme-button" aria-label="Light theme" class="group size-8 flex items-center justify-center rounded-full"> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:stroke-black group-hover:dark:stroke-white transition-colors duration-300 ease-in-out"> <circle cx="12" cy="12" r="5"></circle> <line x1="12" y1="1" x2="12" y2="3"></line> <line x1="12" y1="21" x2="12" y2="23"></line> <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line> <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line> <line x1="1" y1="12" x2="3" y2="12"></line> <line x1="21" y1="12" x2="23" y2="12"></line> <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line> <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line> </svg> </button> <button id="dark-theme-button" aria-label="Dark theme" class="group size-8 flex items-center justify-center rounded-full"> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:stroke-black group-hover:dark:stroke-white transition-colors duration-300 ease-in-out"> <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path> </svg> </button> <button id="system-theme-button" aria-label="System theme" class="group size-8 flex items-center justify-center rounded-full"> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:stroke-black group-hover:dark:stroke-white transition-colors duration-300 ease-in-out"> <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect> <line x1="8" y1="21" x2="16" y2="21"></line> <line x1="12" y1="17" x2="12" y2="21"></line> </svg> </button> </div> </div>  </div> </footer> </body></html>
