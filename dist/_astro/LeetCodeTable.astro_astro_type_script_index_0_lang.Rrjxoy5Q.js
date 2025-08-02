@@ -1,0 +1,8 @@
+class a{constructor(){this.init()}init(){this.loadProgress(),document.querySelectorAll(".problem-checkbox").forEach(t=>{t.addEventListener("change",this.handleCheckboxChange.bind(this))})}getStorageKey(t,e){return`leetcode-progress-${t}-${e}`}loadProgress(){document.querySelectorAll(".problem-checkbox").forEach(t=>{const e=t,c=e.dataset.tableId,r=e.dataset.problemId,s=this.getStorageKey(c,r),o=localStorage.getItem(s)==="true";e.checked=o,o&&this.markRowAsCompleted(t.closest("tr"))}),this.updateProgress()}handleCheckboxChange(t){const e=t.target,c=e.dataset.tableId,r=e.dataset.problemId,s=this.getStorageKey(c,r),o=e.closest("tr");e.checked?(localStorage.setItem(s,"true"),this.markRowAsCompleted(o)):(localStorage.removeItem(s),this.markRowAsIncomplete(o)),this.updateProgress()}markRowAsCompleted(t){t&&t.classList.add("completed")}markRowAsIncomplete(t){t&&t.classList.remove("completed")}updateProgress(){document.querySelectorAll(".leetcode-table").forEach(e=>{const c=e.querySelectorAll(".problem-checkbox"),r=e.querySelectorAll(".problem-checkbox:checked").length,s=c.length;let o=e.parentElement?.querySelector(".progress-indicator");!o&&e.parentElement&&(o=document.createElement("div"),o.className="progress-indicator",e.parentElement.insertBefore(o,e));const l=s>0?Math.round(r/s*100):0;o&&(o.innerHTML=`
+            <div class="progress-bar">
+              <div class="progress-text">Progress: ${r}/${s} (${l}%)</div>
+              <div class="progress-track">
+                <div class="progress-fill" style="width: ${l}%"></div>
+              </div>
+            </div>
+          `)})}}document.addEventListener("DOMContentLoaded",()=>{new a});document.addEventListener("astro:page-load",()=>{new a});
